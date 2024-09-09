@@ -37,9 +37,9 @@ exports.getAllSuppliers = async (req, res) => {
 exports.updateSupplier = async (req, res) => {
   try {
     const id = req.params;
-    const { name } = req.body;
+    const body = req.body;
 
-    const response = await Supplier.findByIdAndUpdate({ _id: id, name: name });
+    const response = await Supplier.findByIdAndUpdate(id, body);
 
     res.status(200).json({
       success: true,
@@ -55,9 +55,10 @@ exports.updateSupplier = async (req, res) => {
 };
 
 exports.deleteSupplier = async (req, res) => {
+  const { id } = req.params;
   try {
-    const id = req.params;
-    const response = await Supplier.find(id, { isDeleted: true });
+    const response = await Supplier.findByIdAndDelete(id, { isDeleted: true });
+    response.save();
 
     res.status(200).json({
       success: true,
