@@ -48,7 +48,11 @@ const Order = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:5000/api/order/add", newOrder);
+      await axios.post("http://localhost:5000/api/order/add", newOrder, {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
       setNewOrder({
         product_id: "",
         quantity: "",

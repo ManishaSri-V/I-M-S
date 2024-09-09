@@ -22,7 +22,11 @@ const SupplierForm = () => {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/api/supplier/add", newSupplier);
+      await axios.post("http://localhost:5000/api/supplier/add", newSupplier, {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
       setNewSupplier({
         name: "",
         phone: "",

@@ -171,9 +171,8 @@ exports.deleteProductById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const product = await Product.findById(id);
+    const product = await Product.findByIdAndDelete(id, { isDeleted: true });
 
-    product.isDeleted = true;
     product.save();
 
     res.status(200).json({

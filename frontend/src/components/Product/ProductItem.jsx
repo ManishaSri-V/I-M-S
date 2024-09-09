@@ -20,7 +20,12 @@ const ProductItem = ({ product, setProducts, products }) => {
   const updateProduct = async () => {
     const response = await axios.put(
       `http://localhost:5000/api/product/update/${currentProduct._id}`,
-      currentProduct
+      currentProduct,
+      {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
     );
 
     console.log("Update happened successfully", response.data);
@@ -44,7 +49,12 @@ const ProductItem = ({ product, setProducts, products }) => {
 
   const deleteProduct = async () => {
     const response = await axios.delete(
-      `http://localhost:5000/api/product/delete/${currentProduct._id}`
+      `http://localhost:5000/api/product/delete/${currentProduct._id}`,
+      {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
     );
 
     if (response.data.success) {

@@ -45,10 +45,10 @@ exports.getAllUsers = async (req, res) => {
 // This function updates a user by its id
 exports.updateUserById = async (req, res) => {
   const { id } = req.params;
-  const { username } = req.body;
+  const body = req.body;
 
   try {
-    const user = await User.findByIdAndUpdate(id, { username: username });
+    const user = await User.findByIdAndUpdate(id, body);
 
     res.status(200).json({
       success: true,
@@ -109,9 +109,8 @@ exports.deleteUserById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const user = await User.findById(id);
+    const user = await User.findById(id, { isDeleted: true });
 
-    user.isDeleted = true;
     user.save();
 
     res.status(200).json({

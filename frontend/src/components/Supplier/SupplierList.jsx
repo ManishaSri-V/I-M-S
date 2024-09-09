@@ -33,7 +33,11 @@ const SupplierList = () => {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/api/supplier/delete/${id}`);
+      await axios.delete(`http://localhost:5000/api/supplier/delete/${id}`, {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      });
       fetchSuppliers();
     } catch (error) {
       console.error("Error deleting supplier:", error);

@@ -163,9 +163,8 @@ exports.deleteOrderById = async (req, res) => {
   const { id } = req.params;
 
   try {
-    const order = await Order.findById(id);
+    const order = await Order.findByIdAndDelete(id, { isDeleted: true });
 
-    order.isDeleted = true;
     order.save();
 
     res.status(200).json({

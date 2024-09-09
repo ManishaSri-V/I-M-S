@@ -16,7 +16,12 @@ const OrderItem = ({ order, setOrders, orders }) => {
   const updateOrder = async () => {
     const response = await axios.put(
       `http://localhost:5000/api/order/update/${currentOrder._id}`,
-      currentOrder
+      currentOrder,
+      {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
     );
 
     console.log("Update happened successfully", response.data);
@@ -40,7 +45,12 @@ const OrderItem = ({ order, setOrders, orders }) => {
 
   const deleteOrder = async () => {
     const response = await axios.delete(
-      `http://localhost:5000/api/order/delete/${currentOrder._id}`
+      `http://localhost:5000/api/order/delete/${currentOrder._id}`,
+      {
+        headers: {
+          authorization: "Bearer " + localStorage.getItem("token"),
+        },
+      }
     );
 
     if (response.data.success) {
